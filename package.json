@@ -1,0 +1,26 @@
+{
+  "name": "jobby-api",
+  "version": "1.0.0",
+  "description": "Dummy API that will let me experiment with frontend frameworks",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leighgordy/jobby-api.git"
+  },
+  "author": "leighgordy@gmail.com",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/leighgordy/jobby-api/issues"
+  },
+  "homepage": "https://github.com/leighgordy/jobby-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
