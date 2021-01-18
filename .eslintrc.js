@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['jest'],
   env: {
     amd: true,
+    node: true,
     'jest/globals': true
   },
   extends: ['eslint:recommended'],

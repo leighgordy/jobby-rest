@@ -2,7 +2,7 @@
   "name": "jobby-api",
   "version": "1.0.0",
   "description": "Dummy API that will let me experiment with frontend frameworks",
-  "main": "index.js",
+  "main": "src/service-config.js",
   "scripts": {
     "lint": "eslint *.js src/**/*.js test/**/*.js",
     "serve": "node src/index.js",
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/leighgordy/jobby-api#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "swagger-jsdoc": "^6.0.1",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "eslint": "^7.18.0",
