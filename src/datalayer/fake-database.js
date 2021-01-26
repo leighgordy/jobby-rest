@@ -24,27 +24,30 @@ let jobs = [
   }
 ];
 
-exports.createJob = (title, description, email) => {
+exports.createJob = (payload) => {
+  const {
+    title,
+    description,
+    email,
+  } = payload;
   if(title == null || description == null || email == null) {
     throw new Error('Missing either title, description or email.');
   }
   if(!/\S+@\S+\.\S+/.test(email)) {
     throw new Error(`Email address '${email}' invalid.`);
   }
-  const id = uuidv4();
-  jobs.push({
-    id,
+  const newJob = {
+    id: uuidv4(),
     title,
     description,
     email,
     created: Date.now(),
-  });
-  return id;
+  };
+  jobs.push(newJob);
+  return newJob;
 };
 
-exports.retrieveJobs = () => {
-  return jobs;
-};
+exports.retrieveJobs = () => jobs;
 
 exports.retrieveJob = (id) => {
   if(id == null) {
@@ -53,29 +56,40 @@ exports.retrieveJob = (id) => {
   return jobs.find((job) => job.id === id);
 };
 
-exports.updateJob = (id, title, description, email) => {
+exports.updateJob = (id, payload) => {
+  console.log(payload);
+  const {
+    title,
+    description,
+    email,
+  } = payload;
   if(id == null || title == null || description == null || email == null) {
     throw new Error('Missing either id, title, description or email.');
   }
   if(!/\S+@\S+\.\S+/.test(email)) {
     throw new Error(`Email address '${email}' invalid.`);
   }
+  let updatedJob = null;
   jobs = jobs.map((job) => {
     if(job.id === id) {
-      return {
+      updatedJob = {
         ...job,
         title,
         description,
         email,
       };
+      return updatedJob;
     }
     return job;
   });
+  return updatedJob;
 };
 
 exports.deleteJob = (id) => {
   if(id == null) {
     throw new Error('Missing id.');
   }
+  const length = jobs.length;
   jobs = jobs.filter((job) => job.id !== id);
+  return jobs.length < length;
 };

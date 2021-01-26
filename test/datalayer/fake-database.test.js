@@ -59,12 +59,12 @@ describe('fake-database.test.js', ()=>{
 
   describe('deleteJob', () => {
     test('successful call', () => {
-      deleteJob(789);
+      expect(deleteJob(789)).toBe(true);
       expect(retrieveJob(789)).toBeUndefined();
     });
     test('successful call wrong id', () => {
       deleteJob(999);
-      expect(retrieveJob(999)).toBeUndefined();
+      expect(deleteJob(999)).toBe(false);
     });
     test('failed call missing id', (done) => {
       try {
@@ -79,19 +79,22 @@ describe('fake-database.test.js', ()=>{
 
   describe('createJob', () => {
     test('successful call', () => {
-      const id = createJob('newTitle', 'new description', 'newemail@newemail.com');
-      expect(id).not.toBeUndefined();
-      const newRecord = retrieveJob(id);
-      expect(newRecord).toMatchObject({
+      const newJob = createJob({
+        title: 'newTitle',
         description: 'new description',
         email: 'newemail@newemail.com',
-        title: 'newTitle',
       });
-      expect(newRecord.id).not.toBeUndefined();
+      expect(newJob).not.toBeNull();
+      const retrieveRecord = retrieveJob(newJob.id);
+      expect(newJob).toStrictEqual(retrieveRecord);
     });
     test('failed call missing title', (done) => {
       try {
-        createJob(null, 'new description', 'newemail@newemail.com');
+        createJob({
+          title: null,
+          description: 'new description',
+          email: 'newemail@newemail.com',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either title, description or email.');
@@ -100,7 +103,11 @@ describe('fake-database.test.js', ()=>{
     });
     test('failed call missing description', (done) => {
       try {
-        createJob('newTitle', null, 'newemail@newemail.com');
+        createJob({
+          title: 'newTitle',
+          description: null,
+          email: 'newemail@newemail.com',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either title, description or email.');
@@ -109,7 +116,11 @@ describe('fake-database.test.js', ()=>{
     });
     test('failed call missing email', (done) => {
       try {
-        createJob('newTitle', 'new description', null);
+        createJob({
+          title: 'newTitle',
+          description: 'new description',
+          email: null,
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either title, description or email.');
@@ -118,7 +129,11 @@ describe('fake-database.test.js', ()=>{
     });
     test('failed call invalid email', (done) => {
       try {
-        createJob('newTitle', 'new description', 'newemailnewemailcom');
+        createJob({
+          title: 'newTitle',
+          description: 'new description',
+          email: 'newemailnewemailcom',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Email address \'newemailnewemailcom\' invalid.');
@@ -135,19 +150,22 @@ describe('fake-database.test.js', ()=>{
     });
 
     test('successful call', () => {
-      updateJob(id, 'updated', 'recently updated', 'updatedemail@updatedemail.com');
-      const newRecord = retrieveJob(id);
-      expect(newRecord).toMatchObject({
+      const updatedJob = updateJob(id, {
+        title: 'updated',
         description: 'recently updated',
         email: 'updatedemail@updatedemail.com',
-        title: 'updated',
       });
-      expect(newRecord.id).toBe(id);
+      const retrieveRecord = retrieveJob(id);
+      expect(updatedJob).toStrictEqual(retrieveRecord);
     });
 
     test('failed call missing id', (done) => {
       try {
-        updateJob(null, 'updated', 'recently updated', 'updatedemail@updatedemail.com');
+        updateJob(null, {
+          title: 'updated',
+          description: 'recently updated',
+          email: 'updatedemail@updatedemail.com',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either id, title, description or email.');
@@ -157,7 +175,11 @@ describe('fake-database.test.js', ()=>{
 
     test('failed call missing title', (done) => {
       try {
-        updateJob(id, null, 'recently updated', 'updatedemail@updatedemail.com');
+        updateJob(id, {
+          title: null,
+          description: 'recently updated',
+          email: 'updatedemail@updatedemail.com',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either id, title, description or email.');
@@ -167,7 +189,11 @@ describe('fake-database.test.js', ()=>{
 
     test('failed call missing description', (done) => {
       try {
-        updateJob(id, 'updated', null, 'updatedemail@updatedemail.com');
+        updateJob(id, {
+          title: 'updated',
+          description: null,
+          email: 'updatedemail@updatedemail.com',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either id, title, description or email.');
@@ -177,7 +203,11 @@ describe('fake-database.test.js', ()=>{
 
     test('failed call missing email', (done) => {
       try {
-        updateJob(id, 'updated', 'recently updated', null);
+        updateJob(id, {
+          title: 'updated',
+          description: 'recently updated',
+          email: null,
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Missing either id, title, description or email.');
@@ -186,7 +216,11 @@ describe('fake-database.test.js', ()=>{
     });
     test('failed call invalid email', (done) => {
       try {
-        updateJob(id, 'updated', 'recently updated', 'updatedemailupdatedemailcom');
+        updateJob(id, {
+          title: 'updated',
+          description: 'recently updated',
+          email: 'updatedemailupdatedemailcom',
+        });
         done.fail();
       } catch(err) {
         expect(err.message).toBe('Email address \'updatedemailupdatedemailcom\' invalid.');
