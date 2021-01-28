@@ -10,4 +10,5 @@ const errorHandler = (err, req, res, next) => {
 module.exports = (app) => {
   app.use('/jobs', jobs);
   app.use(errorHandler);
+  return app;
 };

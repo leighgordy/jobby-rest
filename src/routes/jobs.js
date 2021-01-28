@@ -59,7 +59,7 @@ router.get('/:id', (req, res) => {
     throw new Error('Id provided was not a number');
   }
   const results = retrieveJob(jobId);
-  if(results === undefined) {
+  if(results == null) {
     res.status(404).json({ message: 'Job not found' });
   } else {
     res.json(results);
