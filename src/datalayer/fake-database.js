@@ -57,7 +57,6 @@ exports.retrieveJob = (id) => {
 };
 
 exports.updateJob = (id, payload) => {
-  console.log(payload);
   const {
     title,
     description,

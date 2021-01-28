@@ -145,7 +145,12 @@ describe('fake-database.test.js', ()=>{
   describe('updateJob', () => {
     let id = null;
     beforeAll(() => {
-      id = createJob('updateMe', 'needs updating', 'oldemail@oldemail.com');
+      const job = createJob({
+        title: 'updateMe',
+        description: 'needs updating',
+        email: 'oldemail@oldemail.com'
+      });
+      id = job.id;
       expect(id).not.toBeUndefined();
     });
 
