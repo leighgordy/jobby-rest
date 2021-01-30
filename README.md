@@ -1,4 +1,4 @@
-# jobby-api
+# jobby-rest
 Dummy API that will let me experiment with frontend frameworks. 
 
 When served the application can be found on http://localhost:3000. The swagger docs can be found at http://localhost:3000/api-docs

@@ -1,5 +1,5 @@
 {
-  "name": "jobby-api",
+  "name": "jobby-rest",
   "version": "1.0.0",
   "description": "Dummy API that will let me experiment with frontend frameworks",
   "main": "src/service-config.js",
