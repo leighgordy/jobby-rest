@@ -9,7 +9,7 @@ const {
   deleteJob,
   updateJob,
   createJob,
-} = require('../../src/datalayer/fake-database');
+} = require('jobby-db');
 
 /**
  * @swagger

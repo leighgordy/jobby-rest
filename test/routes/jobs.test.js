@@ -8,9 +8,9 @@ const {
   retrieveJob,
   updateJob,
   deleteJob,
-} = require('../../src/datalayer/fake-database');
+} = require('jobby-db');
 
-jest.mock('../../src/datalayer/fake-database', () => ({
+jest.mock('jobby-db', () => ({
   __esModule: true,
   createJob: jest.fn(),
   retrieveJobs: jest.fn(),
